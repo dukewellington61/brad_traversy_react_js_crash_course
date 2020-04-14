@@ -1,0 +1,3 @@
+ToDos.Js loops over the array of objects which has been passed to it as props in App.js.
+
+With every iteration one element of that array is beeing passed as props to ToDoItems.js which renders the property title of every object
