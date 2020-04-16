@@ -13,7 +13,10 @@ class ToDos extends Component {
 
 // PropTypes
 ToDos.propTypes = {
-    todos: PropTypes.array.isRequired
+    todos: PropTypes.array.isRequired,
+    markComplete: PropTypes.func.isRequired,
+    delToDo: PropTypes.func.isRequired,
+    toDoItem: PropTypes.array.isRequired
 }
 
 

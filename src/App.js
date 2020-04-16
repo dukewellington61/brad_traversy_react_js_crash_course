@@ -32,31 +32,25 @@ class App extends Component {
 
   // Delete ToDo
   delToDo = id => {
-    this.setState({ todos: this.state.todos.filter(todo => todo.id !== id) })
+    axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+    .then(res => this.setState({ todos: this.state.todos.filter(todo => todo.id !== id) }));
   }
 
+  
+  // Add ToDo
   addToDo = title => {
-    const newToDo = {
-      id: uuidv4(),
+    const proxy = 'https://cors-anywhere.herokuapp.com/'; /* add proxy to avoid cors issues */
+    axios.post(`${proxy}https://jsonplaceholder.typicode.com/todos`, {
       title,
       completed: false
-    }
-
-    this.setState({ todos: [...this.state.todos, newToDo]})
+    })
+      .then(res => this.setState({ todos: 
+      [...this.state.todos, res.data] }))
+      .then(res => this.setState({ todos: this.state.todos.map(todo => { /* add uuidv4 to objects afterwards to avoid "same children..." error */        
+          todo.id = uuidv4();         
+          return todo;
+      })}));     
   }
-
-  // This version of the addToDo function produces issues because the id of every added object is the same 
-  // causing the same children / unique key blah blah error
-  // Add ToDo
-  // addToDo = title => {
-  //   const proxy = 'https://cors-anywhere.herokuapp.com/'; /* add proxy to avoid cors issues */
-  //   axios.post(`${proxy}https://jsonplaceholder.typicode.com/todos`, {
-  //     title,
-  //     completed: false
-  //   })
-  //     .then(res => this.setState({ todos: 
-  //     [...this.state.todos, res.data] }));
-  // }
 
     
 
